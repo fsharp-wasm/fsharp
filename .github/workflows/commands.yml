@@ -68,7 +68,7 @@ jobs:
     steps:
 
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
           
       - name: Checkout PR branch
         run: gh auth setup-git && gh pr checkout ${{ github.event.issue.number }}
@@ -76,7 +76,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dotnet
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v5
         with:
           global-json-file: global.json
 
@@ -85,7 +85,7 @@ jobs:
         
       - name: Setup .NET 9.0.0 Runtime for test execution
         if: ${{ needs.parsing_job.outputs.command == '/run test-baseline' }}
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '9.0.x'
 
@@ -117,7 +117,7 @@ jobs:
           cat result
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: cli-results
           path: |
@@ -133,7 +133,7 @@ jobs:
     if: needs.parsing_job.outputs.command != '' && needs.run-parsed-command.result == 'success'
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
           
       - name: Checkout PR branch
         run: gh auth setup-git && gh pr checkout ${{ github.event.issue.number }}
