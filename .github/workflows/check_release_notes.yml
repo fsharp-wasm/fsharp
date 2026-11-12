@@ -29,7 +29,7 @@ jobs:
           });
           return { "pr_number": context.issue.number, "ref": result.data.head.ref, "repository": result.data.head.repo.full_name};
     - name: Checkout repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v6
       with:
         repository: ${{ fromJson(steps.get-pr.outputs.result).repository }}
         ref: ${{ fromJson(steps.get-pr.outputs.result).ref }}
